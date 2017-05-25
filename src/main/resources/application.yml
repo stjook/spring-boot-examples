@@ -1,0 +1,8 @@
+server.port: 8787
+
+spring.datasource:
+  url: jdbc:h2:mem:employeeDb:H2
+  username:
+  password:
+  driverClassName: org.h2.Driver
+  schema: classpath:/database/schema-h2.sql
