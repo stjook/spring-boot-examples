@@ -2,13 +2,16 @@ package com.stjook.sbexamples.model;
 
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by spournar on 24/5/2017.
  */
 @Entity
 @Table(name = "temployee")
-public class Employee {
+public class Employee implements Serializable {
+
+	private static final long serialVersionUID = 662258343692614238L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
