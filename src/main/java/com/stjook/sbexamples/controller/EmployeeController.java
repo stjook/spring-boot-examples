@@ -18,7 +18,7 @@ import java.util.List;
  * Created by spournar on 24/5/2017.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("api")
 public class EmployeeController {
 
 	private static Logger logger = LoggerFactory.getLogger(EmployeeController.class);
@@ -39,12 +39,12 @@ public class EmployeeController {
 	@RequestMapping(value = "/employee", method = RequestMethod.POST)
 	public ResponseEntity<Void> create(
 			@RequestBody Employee employee) {
-		if (service.isEmployeeExist(employee.getSocialSecurity())) {
+		if (service.isEmployeeExists(employee.getSocialSecurity())) {
 			System.out.println("An Employee with social security " + employee.getSocialSecurity() + " already exist");
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
-		Employee newEmployee = service.add(employee);
-		return new ResponseEntity("Employee has been created (employeeId:" + newEmployee.getEmployeeId() + ")", new HttpHeaders(), HttpStatus.CREATED);
+		service.add(employee);
+		return new ResponseEntity("Employee has been created", new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	// Update employee.
@@ -53,15 +53,14 @@ public class EmployeeController {
 			@PathVariable @NotNull Long employeeId,
 			@RequestBody Employee employee) {
 		service.update(employee);
-		return new ResponseEntity("Employee has been updated (employeeId:" + employee.getEmployeeId() + ")", new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity("Employee has been updated", new HttpHeaders(), HttpStatus.CREATED);
 	}
 
 	// Delete employee.
 	@RequestMapping(value = "/employee/{employeeId}", method = RequestMethod.DELETE)
 	public ResponseEntity<Employee> delete(
 			@PathVariable @NotNull Long employeeId) {
-		Employee employee = new Employee(employeeId);
-		service.delete(employee);
+		service.delete(employeeId);
 		return new ResponseEntity(new HttpHeaders(), HttpStatus.OK);
 	}
 
