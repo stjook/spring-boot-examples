@@ -1,0 +1,40 @@
+# Logging properties
+#
+# Copyright (c) 2017 OpenBet Technology Ltd. All rights reserved.
+
+# Default Store log configuration.
+#
+Configuration:
+  name: default
+
+  Properties:
+    Property:
+      - name: log-file
+        value: ${sys:LOG_FILE}  #The value of the ${sys:LOG_FILE} can be set in application.yml and is the value of the logging.file property
+
+  Appenders:
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "%d{yyyy-MM-dd HH:mm:ss,SSS} [%t] %-5p %c - %m%n"
+
+    RollingFile:
+      - name: RollingFile_Appender
+        fileName: ${log-file}
+        filePattern: ${log-file}.%d{yyyy-MM-dd-HH}.gz
+        PatternLayout:
+          pattern: "%d{yyyy-MM-dd HH:mm:ss,SSS} [%t] %-5p %c - %m%n"
+        Policies:
+          TimeBasedTriggeringPolicy:
+            interval: 1
+            modulate: true
+
+  Loggers:
+
+      Root:
+        AppenderRef:
+          - ref: Console_Appender
+            level: info
+          - ref: RollingFile_Appender
+            level: info
