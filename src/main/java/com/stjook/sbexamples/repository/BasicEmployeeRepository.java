@@ -1,5 +1,6 @@
 package com.stjook.sbexamples.repository;
 
+import com.stjook.sbexamples.exceptions.EmployeeNotFoundException;
 import com.stjook.sbexamples.model.Employee;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,8 +20,13 @@ public class BasicEmployeeRepository implements EmployeeRepository {
 	private EntityManager entityManager;
 
 	@Override
-	public Employee getEmployeeById(long employeeId) {
-		return entityManager.find(Employee.class, employeeId);
+	public Employee getEmployeeById(long employeeId) throws EmployeeNotFoundException {
+		Employee employee = entityManager.find(Employee.class, employeeId);
+
+		if (employee == null) {
+			throw new EmployeeNotFoundException();
+		}
+		return employee;
 	}
 
 	@Override
