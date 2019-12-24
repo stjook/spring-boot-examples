@@ -4,16 +4,16 @@ server.port: 8787
 
 spring.datasource:
   continue-on-error: false
-#  url: jdbc:h2:mem:employeeDb:H2
-#  username:
-#  password:
-#  driverClassName: org.h2.Driver
-#  schema: classpath:/database/schema-h2.sql
-  url: jdbc:postgresql://localhost:5432/stjookdb
-  username: postgres
-  password: postgres
-  driverClassName: org.postgresql.Driver
-  schema: classpath:/database/schema-postgres.sql
+  url: jdbc:h2:mem:employeeDb:H2
+  username:
+  password:
+  driverClassName: org.h2.Driver
+  schema: classpath:/database/schema-h2.sql
+#  url: jdbc:postgresql://localhost:5432/stjookdb
+#  username: postgres
+#  password: postgres
+#  driverClassName: org.postgresql.Driver
+#  schema: classpath:/database/schema-postgres.sql
 
   tomcat.max-wait: 20000
   tomcat.max-active: 50
